@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
     $upit = "SELECT * FROM korisnik WHERE username = '" . $username . "' and password = '" . $loz . "'";
     $qu = mysqli_query($konekcija, $upit);
     if (!$qu) {
-        print("Upit ne moze da se izvrsi" . $konekcija->error);
+        print("Upit ne moze da se izvrsi" . $konekcija->error); 
     }
 
     while ($row = mysqli_fetch_array($qu)) {
