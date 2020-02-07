@@ -11,7 +11,7 @@ $res = mysqli_query($conn, $upit);
 $rezervacije = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
 $output = '
-			<table class="table table-sm" id="rezervacije">
+			<table class="table table-sm" id="rezervacije"> 
 				<thead>
 					<tr>
 						<th>Adresa</th>

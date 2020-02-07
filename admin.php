@@ -45,7 +45,7 @@ session_start();
 
                 </div>
 
-                <div class="nekretnine row">
+                <div class="nekretnine row"> 
 
                     <script type="text/template" id="karticaZauzeta">
                         <div class="col-lg-3 kartica zauzeta">
