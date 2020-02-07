@@ -80,7 +80,12 @@ input[type=text] {
     font-weight: 800 !important;
 }
 
-label {
+/* label {
+    font-weight: 800 !important;
+    color: rgba(255, 255, 255, 0.9);
+} */
+
+.label {
     font-weight: 800 !important;
     color: rgba(255, 255, 255, 0.9);
 }
@@ -166,6 +171,7 @@ p {
 .rezervacijalbl{
     color: #2f3542;
 }
+
 
 /* 
 DATEPICKER

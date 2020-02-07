@@ -2,6 +2,8 @@
 
 include 'config/db_konekcija.php';
 
+session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +16,7 @@ include 'config/db_konekcija.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css">
     <link rel="icon" type="image/png" sizes="24x24" href="img/favicon.png">
     <title>bnbg</title>
 
@@ -21,14 +24,26 @@ include 'config/db_konekcija.php';
 
 <body>
 
-    <div class="row no-gutters">
+    
 
+    <div class="row no-gutters">
+    <?php if(isset($_SESSION['korisnikID'])) { ?>
         <div class="col-md-8">
 
             <div class="lijeva">
 
                 <img src="img/favicon.png" align="left" style="height: 3em;">
                 <h1><a href="./">bnbg</a></h1>
+
+                <div class="col-md-12 col-md-offset-2" style="padding-bottom: 2em; border-bottom: 4px rgba(47,53,66, 0.1) solid; margin-bottom: 2em;">
+
+                    <?php
+
+                    include 'rezervacije.php';
+
+                    ?>
+
+                </div>
 
                 <div class="nekretnine row">
 
@@ -57,6 +72,7 @@ include 'config/db_konekcija.php';
                     </script>
 
                 </div>
+
             </div>
 
         </div>
@@ -66,11 +82,21 @@ include 'config/db_konekcija.php';
             <div class="desna">
                 <div class="row no-gutters w-100">
 
+                    <?php if (isset($_SESSION['korisnikID'])) { ?>
+
+                        <p style="color: #FFF; font-weight: 800; padding-bottom: 2em; border-bottom: 4px #ff7f50 solid;" class="w-100"><a href="logout.php">Odjavi se <?php echo $_SESSION['ime']." ".$_SESSION['prezime']; ?></a></p>
+
+                    <?php } else { ?>
+
+                        <p style="color: #FFF; font-weight: 800; padding-bottom: 2em; border-bottom: 4px #ff7f50 solid;" class="w-100"><a href="./">Prijavi se</a></p>
+
+                    <?php } ?>
+
                     <form class="w-100" autocomplete="off" method="POST" style="border-bottom: 4px #ff7f50 solid; padding-bottom: 1em">
                         <h2>Unesi nekretninu</h2>
 
                         <div class="form-group">
-                            <label for="inputState">Opština</label>
+                            <label class="label" for="inputState">Opština</label>
                             <select name="opstina" id="opstina" class="form-control form-control-sm">
                                 <?php
                                 $rezultati = mysqli_query($konekcija, "SELECT * FROM opstina ORDER BY nazivOpstine DESC");
@@ -83,12 +109,12 @@ include 'config/db_konekcija.php';
                         </div>
 
                         <div class="form-group">
-                            <label for="adresa">Adresa</label>
+                            <label class="label" for="adresa">Adresa</label>
                             <input type="text" class="form-control form-control-sm" id="adresa">
                         </div>
 
                         <div class="form-group">
-                            <label for="inputState">Tip nekretnine</label>
+                            <label class="label" for="inputState">Tip nekretnine</label>
                             <select name="tip" id="tip" class="form-control form-control-sm">
                                 <?php
                                 $rezultati = mysqli_query($konekcija, "SELECT * FROM tip");
@@ -101,7 +127,7 @@ include 'config/db_konekcija.php';
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Kvadratura</label>
+                            <label class="label" for="exampleInputPassword1">Kvadratura</label>
                             <input type="text" class="form-control form-control-sm" id="kvadratura">
                         </div>
 
@@ -113,7 +139,7 @@ include 'config/db_konekcija.php';
                         <h2>Pretraži po dostupnosti</h2>
 
                         <div class="form-group">
-                            <label for="inputState">Prikaži</label>
+                            <label class="label" for="inputState">Prikaži</label>
                             <select name="dostupnost" id="dostupnost" class="form-control form-control-sm">
                                 <option value="-1">Sve</option>
                                 <option value="0">Zauzete</option>
@@ -125,17 +151,17 @@ include 'config/db_konekcija.php';
 
                     </form>
 
-                    <form class="w-100" id="trecaforma" autocomplete="off" style="padding-top: 1em">
+                    <form class="w-100" id="trecaforma" autocomplete="off" style="padding-top: 1em; padding-bottom: 2em">
                         <h2>Konvertuj cenu</h2>
 
                         <div class="form-row">
                             <div class="col">
-                                <label for="RSD">Iznos u RSD</label>
+                                <label class="label" for="RSD">Iznos u RSD</label>
                                 <input type="text" class="form-control form-control-sm" id="RSD">
                             </div>
 
                             <div class="col">
-                                <label for="EUR">Iznos u USD</label>
+                                <label class="label" for="EUR">Iznos u USD</label>
                                 <input type="text" class="form-control form-control-sm" id="USD" readonly>
                             </div>
                             <button type="button" id="konvertuj" class="btn btn-md btn-primary w-100">Konvertuj</button>
@@ -149,13 +175,17 @@ include 'config/db_konekcija.php';
             </div>
 
         </div>
+        <?php } else { header ("Location: ./"); } ?>
 
     </div>
+                            
 
 
 </body>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/mustache.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -178,6 +208,31 @@ include 'config/db_konekcija.php';
             }
 
         };
+
+        $('#rezervacije').DataTable({
+            lengthMenu: [
+                [4, 8, 16, -1],
+                [4, 8, 16, "Sve"]
+            ],
+            order: [
+                [2, "asc"]
+            ],
+            responsive: true,
+            language: {
+                lengthMenu: "Prikaži _MENU_ rezultata po strani",
+                zeroRecords: "Nema rezultata",
+                info: "Prikazujem stranu _PAGE_ od _PAGES_",
+                infoEmpty: "Nema rezultata",
+                infoFiltered: "(filtrirano ukupno _MAX_ rezultata)",
+                search: "Pretraga:",
+                paginate: {
+                    first: "Prva",
+                    last: "Poslednja",
+                    next: "Sledeća",
+                    previous: "Prethodna"
+                },
+            }
+        });
 
         $.ajax({
 
@@ -279,7 +334,7 @@ include 'config/db_konekcija.php';
                 }
 
             });
- 
+
         });
 
         $('#konvertuj').on('click', function() {
@@ -287,7 +342,7 @@ include 'config/db_konekcija.php';
             var $rsdiznos = $('#RSD').val();
             var $usdkurs = '';
 
-            $.ajax({ 
+            $.ajax({
 
                 type: 'GET',
                 url: 'https://cors-anywhere.herokuapp.com/https://kurs.resenje.org/api/v1/currencies/usd/rates/today',

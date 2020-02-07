@@ -109,12 +109,12 @@ if (isset($_POST['submit'])) {
 
                 <div class="form-row">
                     <div class="col">
-                        <label for="username">Username</label>
+                        <label class="label" for="username">Username</label>
                         <input type="text" class="form-control form-control-sm" name="usernameLog" id="usernameLog">
                     </div>
 
                     <div class="col">
-                        <label for="password">Password</label>
+                        <label class="label" for="password">Password</label>
                         <input type="password" class="form-control form-control-sm" name="passwordLog" id="passwordLog">
                     </div>
                     <input type="submit" name="submit" class="form-submit btn btn-md btn-primary w-100" value="Prijavi se" id="submit">

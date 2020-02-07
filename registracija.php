@@ -68,12 +68,12 @@ if (isset($_POST['submit'])) {
 
                 <div class="form-row">
                     <div class="col">
-                        <label for="ime">Ime</label>
+                        <label class="label" for="ime">Ime</label>
                         <input type="text" class="form-control form-control-sm" name="ime" id="ime">
                     </div>
 
                     <div class="col">
-                        <label for="prezime">Prezime</label>
+                        <label class="label" for="prezime">Prezime</label>
                         <input type="text" class="form-control form-control-sm" name="prezime" id="prezime">
                     </div>
 
@@ -81,12 +81,12 @@ if (isset($_POST['submit'])) {
 
                 <div class="form-row" style="padding-top: 1em;">
                     <div class="col">
-                        <label for="username">Username</label>
+                        <label class="label" for="username">Username</label>
                         <input type="text" class="form-control form-control-sm" name="usernameReg" id="usernameReg">
                     </div>
 
                     <div class="col">
-                        <label for="password">Password</label>
+                        <label class="label" for="password">Password</label>
                         <input type="password" class="form-control form-control-sm" name="passwordReg" id="passwordReg">
                     </div>
                     <input type="submit" name="submit" id="submit" class="form-submit btn btn-md btn-primary w-100" value="Registruj se"/>
