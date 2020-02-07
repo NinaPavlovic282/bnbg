@@ -125,7 +125,7 @@ if(isset($_POST['submit'])){
                                 <?php
                                 }
                                 ?>
-                            </select>
+                            </select> 
                         </div>
 
                         <button type="button" id="pretrazi" class="btn btn-md btn-primary w-100">Pretraži</button>
